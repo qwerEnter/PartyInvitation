@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "674823069754",
+    "project_id": "partyinvitation-1c964",
+    "storage_bucket": "partyinvitation-1c964.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674823069754:android:11bbe3589f5658162ad503",
+        "android_client_info": {
+          "package_name": "com.example.partyinvitation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674823069754-s09hqso1gi8iddhvpqvkgmj97ljt92c9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ7gnD5JIxNelPdvUgcZHdoPstFwjewVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674823069754-s09hqso1gi8iddhvpqvkgmj97ljt92c9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

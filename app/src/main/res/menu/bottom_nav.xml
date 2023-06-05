@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Reservation"
+        android:id="@+id/reservation"
+        android:icon="@drawable/baseline_book_online_24"/>
+
+    <item android:title="Feedback"
+        android:id="@+id/feedback"
+        android:icon="@drawable/baseline_feedback_24"/>
+
+    <item android:title="Logout"
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_baseline_exit_to_app_24"/>
+</menu>
