@@ -3,6 +3,7 @@ package com.example.partyinvitation.Login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassword extends AppCompatActivity {
 
-    Button btnreset;
+    Button btnreset,home;
     EditText email;
     FirebaseAuth firebaseAuth;
 
@@ -26,10 +27,18 @@ public class ForgotPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         btnreset = findViewById(R.id.btnreset);
+        home = findViewById(R.id.home);
         email = findViewById(R.id.email);
-
         firebaseAuth = FirebaseAuth.getInstance();
 
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ForgotPassword.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btnreset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

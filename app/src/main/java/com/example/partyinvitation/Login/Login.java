@@ -3,7 +3,14 @@ package com.example.partyinvitation.Login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.partyinvitation.R;
 import com.example.partyinvitation.Reservation.ReservationMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +26,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 public class Login extends AppCompatActivity {
+
 
     EditText email,password;
     TextView textView;
@@ -28,6 +37,7 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
 
 
+    // stay in home page if still online
     @Override
     public void onStart() {
         super.onStart();
@@ -44,6 +54,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //login with email and password
         mAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -51,8 +62,7 @@ public class Login extends AppCompatActivity {
         btnlogin = findViewById(R.id.btnlogin);
         textView = findViewById(R.id.textViewreset);
 
-
-        //reset
+        //button register
         textView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -84,8 +94,14 @@ public class Login extends AppCompatActivity {
                 loginUser();
             }
         });
+
+
+
     }
 
+
+
+    //login with email n password
     private void loginUser() {
 
         String userEmail = email.getText().toString();
