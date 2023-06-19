@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -61,18 +62,34 @@ public class ReservationFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int reservationId = ++reservationIdCounter;
-                reservationModel.setReservationId(reservationId);
+                DatabaseReference newReservationRef = myRef.push();
+                final String[] reservationId = {newReservationRef.getKey()};
+
+                reservationModel.setReservationId(reservationId[0]);
                 reservationModel.setInvite_name(invitationTitle.getText().toString());
                 reservationModel.setHost_name(hostName.getText().toString());
                 reservationModel.setGuest_name(guestName.getText().toString());
-                myRef.push().setValue(reservationModel);
 
-                ReservationFragment2 reservationFragment2 = new ReservationFragment2();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, reservationFragment2).commit();
+                newReservationRef.setValue(reservationModel, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        if (error == null) {
+                            reservationId[0] = ref.getKey(); // Get the generated reservationId
+                            ReservationFragment2 reservationFragment2 = new ReservationFragment2();
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("reservationId", reservationId[0]);
+                            reservationFragment2.setArguments(bundle);
+
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, reservationFragment2).commit();
+                        } else {
+                            Toast.makeText(getActivity(), "Failed to save reservation", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
 
         return view;
-    }
+}
 }
