@@ -39,30 +39,35 @@ public class ReservationFragment2 extends Fragment {
         txt3 = view.findViewById(R.id.txtGuest);
         btnConfirm = view.findViewById(R.id.btnConfirm);
 
-        // Get the reservation data from Firebase
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-        reservationRef = databaseRef.child("Reservation").child("-NXxP_KpNez0Zd1kdVAd");
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("reservationId")) {
+            String reservationId = bundle.getString("reservationId");
 
-        reservationRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ReservationModel reservation = dataSnapshot.getValue(ReservationModel.class);
+            // Get the reservation data from Firebase using the retrieved reservationId
+            DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+            reservationRef = databaseRef.child("Reservation").child(reservationId);
 
-                    // Set the values of TextViews using reservation data
-                    txt1.setText(reservation.getInvite_name());
-                    txt2.setText(reservation.getHost_name());
-                    txt3.setText(reservation.getGuest_name());
+            reservationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        reservationModel = dataSnapshot.getValue(ReservationModel.class);
+
+                        // Set the values of TextViews using reservation data
+                        txt1.setText(reservationModel.getInvite_name());
+                        txt2.setText(reservationModel.getHost_name());
+                        txt3.setText(reservationModel.getGuest_name());
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Failed to retrieve reservation data", Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getActivity(), "Failed to retrieve reservation data", Toast.LENGTH_SHORT).show();
+                }
 
-        });
+            });
+        }
 
         return view;
-    }
+}
 }
