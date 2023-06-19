@@ -1,11 +1,20 @@
 package com.example.partyinvitation.Model;
 
+
 public class ReservationModel {
 
+    private int reservationId;
     private String invite_name, host_name, guest_name;
 
     public ReservationModel() {
+    }
 
+    public int getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
     }
 
     public String getInvite_name() {

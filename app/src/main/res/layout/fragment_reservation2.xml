@@ -26,8 +26,8 @@
             app:layout_constraintVertical_bias="0.083" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="363dp"
-            android:layout_height="387dp"
+            android:layout_width="355dp"
+            android:layout_height="337dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:text="HOST NAME: "
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -75,14 +75,8 @@
                         android:layout_height="wrap_content"
                         android:text="GUEST NAME: "
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -120,37 +114,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/txtPerson"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btnUpdate"
-                android:layout_width="105dp"
-                android:layout_height="48dp"
-                android:text="EDIT"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.174"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.566" />
-
-            <Button
-                android:id="@+id/btnDelete"
-                android:layout_width="105dp"
-                android:layout_height="48dp"
-                android:text="DELETE"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.829"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.566" />
 
             <Button
                 android:id="@+id/btnConfirm"
@@ -162,7 +127,7 @@
                 app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.727" />
+                app:layout_constraintVertical_bias="0.391" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

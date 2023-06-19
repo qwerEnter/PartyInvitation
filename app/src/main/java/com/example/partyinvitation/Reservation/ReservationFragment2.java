@@ -22,52 +22,47 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ReservationFragment2 extends Fragment {
 
-    TextView txt1, txt2,txt3;
-    Button btnUpdate, btnDelete, btnConfirm;
+    TextView txt1, txt2, txt3;
+    Button btnConfirm;
+
+    DatabaseReference reservationRef;
 
     ReservationModel reservationModel;
-
-    DatabaseReference myRef;
-
-    Toast toast;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         View view = inflater.inflate(R.layout.fragment_reservation2, container, false);
 
         txt1 = view.findViewById(R.id.txtInvitation);
         txt2 = view.findViewById(R.id.txtName);
         txt3 = view.findViewById(R.id.txtGuest);
-        btnUpdate = view.findViewById(R.id.btnUpdate);
-        btnDelete = view.findViewById(R.id.btnDelete);
         btnConfirm = view.findViewById(R.id.btnConfirm);
 
+        // Get the reservation data from Firebase
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+        reservationRef = databaseRef.child("Reservation").child("-NXxP_KpNez0Zd1kdVAd");
 
-        // Retrieve invitation details from Firebase
-        DatabaseReference invitationRef = FirebaseDatabase.getInstance().getReference("invitations").child("-NXh5FdK4z6mxIx0oqzr");
-
-        invitationRef.addValueEventListener(new ValueEventListener() {
+        reservationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Get the invitation data from the dataSnapshot
-                String invitationTitle = dataSnapshot.child("invitationTitle").getValue(String.class);
-                String hostName = dataSnapshot.child("hostName").getValue(String.class);
-                String guestName = dataSnapshot.child("guestName").getValue(String.class);
+                if (dataSnapshot.exists()) {
+                    ReservationModel reservation = dataSnapshot.getValue(ReservationModel.class);
 
-                // Set the text for the TextViews
-                txt1.setText(invitationTitle);
-                txt2.setText(hostName);
-                txt3.setText(guestName);
+                    // Set the values of TextViews using reservation data
+                    txt1.setText(reservation.getInvite_name());
+                    txt2.setText(reservation.getHost_name());
+                    txt3.setText(reservation.getGuest_name());
+                }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle any errors that occur
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), "Failed to retrieve reservation data", Toast.LENGTH_SHORT).show();
             }
+
         });
+
         return view;
     }
 }
