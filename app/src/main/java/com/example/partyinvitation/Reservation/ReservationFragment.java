@@ -1,5 +1,7 @@
 package com.example.partyinvitation.Reservation;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,19 +27,15 @@ import com.google.firebase.database.ValueEventListener;
 public class ReservationFragment extends Fragment {
 
     MaterialButton button;
-
-    EditText invitationTitle,hostName,guestName;
-
+    EditText invitationTitle, hostName, guestName;
     ReservationModel reservationModel;
-
     DatabaseReference myRef;
+    private int reservationIdCounter = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // test
         View view = inflater.inflate(R.layout.fragment_reservation1, container, false);
-
 
         button = view.findViewById(R.id.btnSave);
         invitationTitle = view.findViewById(R.id.txtField1);
@@ -47,20 +45,31 @@ public class ReservationFragment extends Fragment {
         reservationModel = new ReservationModel();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Reservation");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                reservationIdCounter = (int) dataSnapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //insert function - add reservation data in the Reservation Table
+                int reservationId = ++reservationIdCounter;
+                reservationModel.setReservationId(reservationId);
                 reservationModel.setInvite_name(invitationTitle.getText().toString());
                 reservationModel.setHost_name(hostName.getText().toString());
                 reservationModel.setGuest_name(guestName.getText().toString());
                 myRef.push().setValue(reservationModel);
 
-                //Once the database is insert will direct tu ReservationFragment2 page
                 ReservationFragment2 reservationFragment2 = new ReservationFragment2();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, reservationFragment2).commit();
-
             }
         });
 
