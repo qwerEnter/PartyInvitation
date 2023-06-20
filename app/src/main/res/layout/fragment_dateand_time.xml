@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DateandTime" >
+    tools:context=".Reservation.DateandTime" >
 
     <TextView
         android:id="@+id/txt"
@@ -110,17 +110,12 @@
             app:layout_constraintVertical_bias="0.1" />
 
         <EditText
-            android:id="@+id/editTextActivities"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:id="@+id/editTextTextMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@id/txt2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btnSave2" />
-
+            android:inputType="textMultiLine" />
 
 
     </LinearLayout>

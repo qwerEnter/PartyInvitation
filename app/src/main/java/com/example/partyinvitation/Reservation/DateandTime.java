@@ -1,18 +1,15 @@
 package com.example.partyinvitation.Reservation;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.partyinvitation.Model.ReservationModel;
@@ -24,28 +21,38 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-public class ReservationFragment extends Fragment {
-
+public class DateandTime extends Fragment {
     MaterialButton button;
-    EditText invitationTitle, hostName, guestName;
+    EditText invitationDate, invitationTime, partyAgenda;
+
     ReservationModel reservationModel;
     DatabaseReference myRef;
+
     private int reservationIdCounter = 0;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_reservation1, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_dateand_time, container, false);
 
-        button = view.findViewById(R.id.btnSave);
-        invitationTitle = view.findViewById(R.id.txtField1);
-        hostName = view.findViewById(R.id.txtField2);
-        guestName = view.findViewById(R.id.txtField3);
+        button = view.findViewById(R.id.btnSave2);
+        invitationDate = view.findViewById(R.id.editTextDate);
+        invitationTime = view.findViewById(R.id.editTextTime);
+        partyAgenda = view.findViewById(R.id.editTextTextMultiLine);
 
-        reservationModel = new ReservationModel();
+        ReservationModel reservationModel = new ReservationModel();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Reservation");
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Reservation");
+        // Remove "DatabaseReference" before myRef
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -54,8 +61,8 @@ public class ReservationFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle database error
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -65,32 +72,49 @@ public class ReservationFragment extends Fragment {
                 DatabaseReference newReservationRef = myRef.push();
                 final String[] reservationId = {newReservationRef.getKey()};
 
+                String dateString = invitationDate.getText().toString();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                try {
+                    Date date = sdf.parse(dateString);
+                    reservationModel.setInvite_date(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String timeString = invitationTime.getText().toString();
+                SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                try {
+                    Time time = (Time) sdf2.parse(timeString);
+                    reservationModel.setInvite_time(time);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
                 reservationModel.setReservationId(reservationId[0]);
-                reservationModel.setInvite_name(invitationTitle.getText().toString());
-                reservationModel.setHost_name(hostName.getText().toString());
-                reservationModel.setGuest_name(guestName.getText().toString());
+                reservationModel.setParty_agenda(partyAgenda.getText().toString());
 
                 newReservationRef.setValue(reservationModel, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         if (error == null) {
                             reservationId[0] = ref.getKey(); // Get the generated reservationId
-                            ReservationFragment2 reservationFragment2 = new ReservationFragment2();
+                            DateandTime_View dateAndTimeViewFragment = new DateandTime_View();
 
                             Bundle bundle = new Bundle();
                             bundle.putString("reservationId", reservationId[0]);
-                            reservationFragment2.setArguments(bundle);
+                            dateAndTimeViewFragment.setArguments(bundle);
 
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, reservationFragment2).commit();
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container, dateAndTimeViewFragment)
+                                    .commit();
                         } else {
                             Toast.makeText(getActivity(), "Failed to save reservation", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
             }
         });
 
         return view;
-}
+    }
 }
