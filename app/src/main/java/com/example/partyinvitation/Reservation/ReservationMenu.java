@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ReservationMenu extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    MainReservation mainReservation = new MainReservation();
     ReservationFragment reservationFragment = new ReservationFragment();
     FeedbackFragment feedbackFragment = new FeedbackFragment();
 
@@ -26,12 +27,12 @@ public class ReservationMenu extends AppCompatActivity {
         // Bottom navigation product
         bottomNavigationView = findViewById(R.id.bottomNavigationView2);
         // Default launch
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, reservationFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mainReservation).commit();
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.reservation) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, reservationFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, mainReservation).commit();
                     return true;
                 }
                 if (item.getItemId() == R.id.feedback) {

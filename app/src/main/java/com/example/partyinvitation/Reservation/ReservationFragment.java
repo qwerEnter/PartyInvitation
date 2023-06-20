@@ -45,7 +45,7 @@ public class ReservationFragment extends Fragment {
 
         reservationModel = new ReservationModel();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Reservation");
+        myRef = database.getReference("Reservation");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
