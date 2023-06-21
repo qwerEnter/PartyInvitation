@@ -89,6 +89,7 @@ public class Login extends AppCompatActivity implements SensorEventListener {
                 Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
                 startActivity(intent);
                 finish();
+
             }
         });
 
@@ -101,6 +102,7 @@ public class Login extends AppCompatActivity implements SensorEventListener {
                 Intent intent = new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
                 finish();
+
             }
         });
 
@@ -110,6 +112,7 @@ public class Login extends AppCompatActivity implements SensorEventListener {
             public void onClick(View view) {
 
                 loginUser();
+
             }
         });
 

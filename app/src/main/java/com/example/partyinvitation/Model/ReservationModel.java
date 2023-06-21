@@ -7,35 +7,38 @@ public class ReservationModel {
 
     private String reservationId;
 
-    private String invite_name, host_name, guest_name, party_agenda, Address,Contact, img;
-    private Date invite_date;
-    private Time invite_time;
+    private String invite_name;
+    private String host_name;
+    private String guest_name;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    private String contact;
+    private String party_agenda;
+    private String invite_date;
+    private String invite_time;
+
+
 
     public ReservationModel() {
 
     }
-
-    public ReservationModel(String reservationId, String invite_name, String host_name, String guest_name, String party_agenda, String address, String contact, Date invite_date, Time invite_time, String image) {
-        this.reservationId = reservationId;
-        this.invite_name = invite_name;
-        this.host_name = host_name;
-        this.guest_name = guest_name;
-        this.party_agenda = party_agenda;
-        this.Address = address;
-        this.Contact = contact;
-        this.invite_date = invite_date;
-        this.invite_time = invite_time;
-        this.img = img;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
     public String getReservationId() {
         return reservationId;
     }
@@ -68,20 +71,20 @@ public class ReservationModel {
         this.guest_name = guest_name;
     }
 
-
-    public Date getInvite_date() {
+    public String getInvite_date() {
         return invite_date;
     }
 
-    public void setInvite_date(Date invite_date) {
+    public void setInvite_date(String invite_date) {
         this.invite_date = invite_date;
     }
 
-    public Time getInvite_time() {
+
+    public String getInvite_time() {
         return invite_time;
     }
 
-    public void setInvite_time(Time invite_time) {
+    public void setInvite_time(String invite_time) {
         this.invite_time = invite_time;
     }
 
@@ -90,24 +93,7 @@ public class ReservationModel {
     }
 
     public void setParty_agenda(String party_agenda) {
+
         this.party_agenda = party_agenda;
     }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String address) {
-        Address = address;
-    }
-
-    public String getContact() {
-        return Contact;
-    }
-
-    public void setContact(String contact) {
-        Contact = contact;
-    }
-
-
 }

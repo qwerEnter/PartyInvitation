@@ -37,6 +37,7 @@ public class ForgotPassword extends AppCompatActivity {
                 Intent intent = new Intent(ForgotPassword.this, Login.class);
                 startActivity(intent);
                 finish();
+
             }
         });
         btnreset.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +59,7 @@ public class ForgotPassword extends AppCompatActivity {
                                 }
                             }
                         });
+
             }
         });
 

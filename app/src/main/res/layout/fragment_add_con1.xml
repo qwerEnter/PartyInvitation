@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100px"
-            android:text="STEP 2 : ADDRESS AND CONTACT INFO"
+            android:text="STEP 3 : ADDRESS AND CONTACT INFO"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textSize="20sp"
