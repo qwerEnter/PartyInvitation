@@ -7,6 +7,18 @@
     android:textAlignment="gravity"
     tools:context=".Reservation.MainReservation">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="201dp"
+        android:layout_height="239dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155"
+        app:srcCompat="@drawable/appicon"
+        tools:srcCompat="@drawable/appicon" />
+
     <Button
         android:id="@+id/btnReservation"
         android:layout_width="wrap_content"
@@ -14,10 +26,9 @@
         android:text="START INVITATION"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.339" />
+        app:layout_constraintVertical_bias="0.543" />
 
     <Button
         android:id="@+id/btnDisplay"
@@ -26,8 +37,7 @@
         android:text="DISPLAY LIST INVITATION"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintVertical_bias="0.654" />
 </androidx.constraintlayout.widget.ConstraintLayout>

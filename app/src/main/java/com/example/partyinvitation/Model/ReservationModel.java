@@ -7,13 +7,35 @@ public class ReservationModel {
 
     private String reservationId;
 
-    private String invite_name, host_name, guest_name, party_agenda, Address,Contact ;
+    private String invite_name, host_name, guest_name, party_agenda, Address,Contact, img;
     private Date invite_date;
     private Time invite_time;
 
     public ReservationModel() {
 
     }
+
+    public ReservationModel(String reservationId, String invite_name, String host_name, String guest_name, String party_agenda, String address, String contact, Date invite_date, Time invite_time, String image) {
+        this.reservationId = reservationId;
+        this.invite_name = invite_name;
+        this.host_name = host_name;
+        this.guest_name = guest_name;
+        this.party_agenda = party_agenda;
+        this.Address = address;
+        this.Contact = contact;
+        this.invite_date = invite_date;
+        this.invite_time = invite_time;
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getReservationId() {
         return reservationId;
     }
@@ -86,4 +108,6 @@ public class ReservationModel {
     public void setContact(String contact) {
         Contact = contact;
     }
+
+
 }
