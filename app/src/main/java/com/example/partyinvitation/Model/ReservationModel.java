@@ -7,7 +7,32 @@ public class ReservationModel {
 
     private String reservationId;
 
-    private String invite_name, host_name, guest_name, party_agenda, invite_date, invite_time;
+    private String invite_name;
+    private String host_name;
+    private String guest_name;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    private String contact;
+    private String party_agenda;
+    private String invite_date;
+    private String invite_time;
 
 
 
