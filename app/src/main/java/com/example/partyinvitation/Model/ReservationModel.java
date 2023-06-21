@@ -7,7 +7,7 @@ public class ReservationModel {
 
     private String reservationId;
 
-    private String invite_name, host_name, guest_name, party_agenda;
+    private String invite_name, host_name, guest_name, party_agenda, Address,Contact ;
     private Date invite_date;
     private Time invite_time;
 
@@ -69,5 +69,21 @@ public class ReservationModel {
 
     public void setParty_agenda(String party_agenda) {
         this.party_agenda = party_agenda;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getContact() {
+        return Contact;
+    }
+
+    public void setContact(String contact) {
+        Contact = contact;
     }
 }
