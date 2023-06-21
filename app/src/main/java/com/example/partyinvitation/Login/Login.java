@@ -71,6 +71,7 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
                 startActivity(intent);
                 finish();
+
             }
         });
 
@@ -83,6 +84,7 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
                 finish();
+
             }
         });
 
@@ -92,6 +94,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
 
                 loginUser();
+
             }
         });
 

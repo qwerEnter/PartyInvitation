@@ -89,6 +89,7 @@ public class Register extends AppCompatActivity {
                             .setNegativeButton("Cancel", null)
                             .show();
                 }
+
             }
         });
 
@@ -98,6 +99,7 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
 
                 createUser();
+
 
             }
         });
