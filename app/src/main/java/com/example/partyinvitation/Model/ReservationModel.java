@@ -7,9 +7,9 @@ public class ReservationModel {
 
     private String reservationId;
 
-    private String invite_name, host_name, guest_name, party_agenda;
-    private Date invite_date;
-    private Time invite_time;
+    private String invite_name, host_name, guest_name, party_agenda, invite_date, invite_time;
+
+
 
     public ReservationModel() {
 
@@ -46,20 +46,20 @@ public class ReservationModel {
         this.guest_name = guest_name;
     }
 
-
-    public Date getInvite_date() {
+    public String getInvite_date() {
         return invite_date;
     }
 
-    public void setInvite_date(Date invite_date) {
+    public void setInvite_date(String invite_date) {
         this.invite_date = invite_date;
     }
 
-    public Time getInvite_time() {
+
+    public String getInvite_time() {
         return invite_time;
     }
 
-    public void setInvite_time(Time invite_time) {
+    public void setInvite_time(String invite_time) {
         this.invite_time = invite_time;
     }
 
@@ -68,6 +68,7 @@ public class ReservationModel {
     }
 
     public void setParty_agenda(String party_agenda) {
+
         this.party_agenda = party_agenda;
     }
 }

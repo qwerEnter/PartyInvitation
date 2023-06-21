@@ -56,16 +56,17 @@ public class DateandTime_View extends Fragment {
                     if (dataSnapshot.exists()) {
                         reservationModel = dataSnapshot.getValue(ReservationModel.class);
 
-                        // Set the values of TextViews using reservation data
+                       /* // Set the values of TextViews using reservation data
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
                         String inviteDate = dateFormat.format(reservationModel.getInvite_date());
                         String inviteTime = timeFormat.format(reservationModel.getInvite_time());
+*/
 
-
-                        txt_Date.setText(inviteDate);
-                        txt_Time.setText(inviteTime);
+                       /*  txt1.setText(reservationModel.getInvite_name());*/
+                        txt_Date.setText(reservationModel.getInvite_date());
+                        txt_Time.setText(reservationModel.getInvite_time());
                         txt_Agenda.setText(reservationModel.getParty_agenda());
                     }
                 }
