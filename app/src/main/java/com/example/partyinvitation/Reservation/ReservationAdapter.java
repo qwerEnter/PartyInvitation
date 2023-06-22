@@ -108,7 +108,7 @@ public class ReservationAdapter extends FirebaseRecyclerAdapter<ReservationModel
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseDatabase.getInstance().getReference().child("Reservation")
                                 .child(getRef(position).getKey()).removeValue();
-                        Toast.makeText(holder.invite.getContext(), "Successfull Deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(holder.invite.getContext(), "Successfully Deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

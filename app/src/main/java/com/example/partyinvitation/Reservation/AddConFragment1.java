@@ -33,12 +33,23 @@ EditText address, contact;
 MaterialButton btn1;
 ReservationModel reservationModel;
 DatabaseReference myRef;
-private int reservationIdCounter = 0;
+String reservationId;
+//private int reservationIdCounter = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_con1, container, false);
+
+        // Retrieve the reservationId from arguments
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            reservationId = bundle.getString("reservationId");
+        }
+
+        // Initialize the database reference
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Reservation");
 
         step2 = view.findViewById(R.id.step2);
         tvAddress = view.findViewById(R.id.tvAddress);
@@ -46,12 +57,31 @@ private int reservationIdCounter = 0;
         address = view.findViewById(R.id.address);
         contact = view.findViewById(R.id.phone);
 
-        reservationModel = new ReservationModel();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Reservation");
+        //reservationModel = new ReservationModel();
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //DatabaseReference myRef = database.getReference("Reservation");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        MaterialButton button = view.findViewById(R.id.btn2);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View v) {
+                DatabaseReference reservationRef = myRef.child(reservationId);
+
+                reservationRef.child("address").setValue(address.getText().toString());
+                reservationRef.child("contact").setValue(contact.getText().toString());
+
+                AddConFragment2 addcon2 = new AddConFragment2();
+                Bundle bundle = new Bundle();
+                bundle.putString("reservationId", reservationId);
+                addcon2.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, addcon2)
+                        .commit();
+            }
+        });
+
+        //myRef.addValueEventListener(new ValueEventListener() {
+            /*@Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 reservationIdCounter = (int) dataSnapshot.getChildrenCount();
             }
@@ -90,7 +120,7 @@ private int reservationIdCounter = 0;
                     }
                 });
             }
-        });
+        });*/
 
         return view;
     }

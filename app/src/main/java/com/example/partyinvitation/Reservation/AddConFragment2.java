@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.partyinvitation.Feedback.FeedbackFragment;
 import com.example.partyinvitation.Model.ReservationModel;
 import com.example.partyinvitation.R;
 import com.google.android.material.button.MaterialButton;
@@ -66,6 +67,26 @@ public class AddConFragment2 extends Fragment {
 
             });
         }
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FeedbackFragment feedback = new FeedbackFragment();
+                Bundle bundle = getArguments();
+                if (bundle != null) {
+                    String reservationId = bundle.getString("reservationId");
+
+                    Bundle feedbackBundle = new Bundle();
+                    feedbackBundle.putString("reservationId", reservationId);
+
+                    feedback.setArguments(feedbackBundle);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, feedback)
+                            .commit();
+                }
+            }
+        });
 
         return view;
     }
