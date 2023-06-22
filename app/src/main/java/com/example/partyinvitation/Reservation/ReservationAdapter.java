@@ -63,6 +63,8 @@ public class ReservationAdapter extends FirebaseRecyclerAdapter<ReservationModel
                 EditText date = view.findViewById(R.id.txtDate);
                 EditText time = view.findViewById(R.id.txtTime);
                 EditText agenda = view.findViewById(R.id.txtAgenda);
+                EditText address = view.findViewById(R.id.txtAddress);
+                EditText contact = view.findViewById(R.id.txtContact);
 
                 Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
@@ -72,6 +74,8 @@ public class ReservationAdapter extends FirebaseRecyclerAdapter<ReservationModel
                 date.setText(model.getInvite_date());
                 time.setText(model.getInvite_time());
                 agenda.setText(model.getParty_agenda());
+                address.setText(model.getAddress());
+                contact.setText(model.getContact());
 
                 dialogPlus.show();
 
@@ -85,6 +89,8 @@ public class ReservationAdapter extends FirebaseRecyclerAdapter<ReservationModel
                         map.put("invite_date", date.getText().toString());
                         map.put("invite_time", time.getText().toString());
                         map.put("party_agenda", agenda.getText().toString());
+                        map.put("address", address.getText().toString());
+                        map.put("contact", contact.getText().toString());
 
                         FirebaseDatabase.getInstance().getReference().child("Reservation").child(getRef(position).getKey()).updateChildren(map)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
