@@ -25,7 +25,7 @@ public class ReservationFragment2 extends Fragment {
     TextView txt1, txt2, txt3;
     Button btnConfirm;
 
-    DatabaseReference reservationRef;
+    DatabaseReference myRef;
 
     ReservationModel reservationModel;
 
@@ -40,14 +40,26 @@ public class ReservationFragment2 extends Fragment {
         btnConfirm = view.findViewById(R.id.btnConfirm);
 
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("reservationId")) {
+        if (bundle != null) {
             String reservationId = bundle.getString("reservationId");
+            String inviteName = bundle.getString("inviteName");
+            String hostName = bundle.getString("hostName");
+            String guestName = bundle.getString("guestName");
+
+            // Use the retrieved values to display in the TextViews
+            txt1.setText(inviteName);
+            txt2.setText(hostName);
+            txt3.setText(guestName);
+
+        /*Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("reservationId")) {
+            String reservationId = bundle.getString("reservationId");*/
 
             // Get the reservation data from Firebase using the retrieved reservationId
             DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-            reservationRef = databaseRef.child("Reservation").child(reservationId);
+           myRef = databaseRef.child("Reservation").child(reservationId);
 
-            reservationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+           myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -72,11 +84,30 @@ public class ReservationFragment2 extends Fragment {
             @Override
             public void onClick(View view) {
                 DateandTime dateandTime = new DateandTime();
+                Bundle bundle = getArguments();
+                if (bundle != null) {
+                    String reservationId = bundle.getString("reservationId");
+
+                    Bundle dateAndTimeBundle = new Bundle();
+                    dateAndTimeBundle.putString("reservationId", reservationId);
+
+                    dateandTime.setArguments(dateAndTimeBundle);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, dateandTime)
+                            .commit();
+
+
+               /* Bundle bundle = new Bundle();
+                bundle.putString("reservationId", reservationModel.getReservationId());
+                dateandTime.setArguments(bundle);
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, dateandTime).commit();
-
+*/
+                }
             }
         });
+
         return view;
 }
 }

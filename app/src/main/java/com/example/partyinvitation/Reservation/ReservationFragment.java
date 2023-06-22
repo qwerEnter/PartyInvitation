@@ -63,6 +63,49 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DatabaseReference newReservationRef = myRef.push();
+                final String reservationId = newReservationRef.getKey(); // Get the generated reservationId
+
+                reservationModel.setReservationId(reservationId);
+                reservationModel.setInvite_name(invitationTitle.getText().toString());
+                reservationModel.setHost_name(hostName.getText().toString());
+                reservationModel.setGuest_name(guestName.getText().toString());
+
+                newReservationRef.setValue(reservationModel, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        if (error == null) {
+
+//                          DateandTime dateandTimeFragment = new DateandTime(); // Create an instance of the DateandTimeFragment
+                           /* reservationId[0] = ref.getKey(); // Get the generated reservationId*/
+
+                            ReservationFragment2 reservationFragment2 = new ReservationFragment2();
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("reservationId", reservationId);
+                            bundle.putString("inviteName", invitationTitle.getText().toString());
+                            bundle.putString("hostName", hostName.getText().toString());
+                            bundle.putString("guestName", guestName.getText().toString());
+
+//                          dateandTimeFragment.setArguments(bundle); // Pass the reservationId to the DateandTimeFragment
+                            reservationFragment2.setArguments(bundle);
+
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.container, reservationFragment2)
+                                    .commit();
+                        } else {
+                            Toast.makeText(getActivity(), "Failed to save reservation", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+       /* button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference newReservationRef = myRef.push();
                 final String[] reservationId = {newReservationRef.getKey()};
 
                 reservationModel.setReservationId(reservationId[0]);
@@ -89,7 +132,7 @@ public class ReservationFragment extends Fragment {
                 });
 
             }
-        });
+        });*/
 
         return view;
     }

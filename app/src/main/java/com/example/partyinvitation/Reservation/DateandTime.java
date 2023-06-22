@@ -40,12 +40,64 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class DateandTime extends Fragment {
 
+    DatabaseReference myRef;
+    EditText inviteDate, inviteTime, partyAgenda;
+    String reservationId;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_dateand_time, container, false);
+
+        // Retrieve the reservationId from arguments
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            reservationId = bundle.getString("reservationId");
+        }
+
+        // Initialize the database reference
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Reservation");
+
+        inviteDate = view.findViewById(R.id.editDate);
+        inviteTime = view.findViewById(R.id.editTime);
+        partyAgenda = view.findViewById(R.id.editAgenda);
+
+        MaterialButton button = view.findViewById(R.id.btnSave);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference reservationRef = myRef.child(reservationId); // Get the reference to the reservation with the reservationId
+
+                // Save the date and time details to the reservation
+                reservationRef.child("invite_date").setValue(inviteDate.getText().toString());
+                reservationRef.child("invite_time").setValue(inviteTime.getText().toString());
+                reservationRef.child("party_agenda").setValue(partyAgenda.getText().toString());
+
+                // Continue with further actions or navigate to other fragments/activities
+                DateandTime_View dateandTimeView = new DateandTime_View();
+                Bundle bundle = new Bundle();
+                bundle.putString("reservationId", reservationId);
+                dateandTimeView.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, dateandTimeView)
+                        .commit();
+            }
+        });
+
+        return view;
+    }
+}
+
+/*public class DateandTime extends Fragment {
+
     private EditText editDate, editTime, editAgenda;
     private Button btnSave;
 
     ReservationModel reservationModel;
     DatabaseReference myRef;
-    private int reservationIdCounter = 0;
+    DatabaseReference newReservationRef; // Declare newReservationRef as a class-level variable
+    private int reservationIdCounter = 0; // Declare reservationIdCounter as a class-level variable
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +106,7 @@ public class DateandTime extends Fragment {
         // Obtain a reference to the Firebase Realtime Database
         reservationModel = new ReservationModel();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Reservation");
+        myRef = database.getReference("Reservation");
 
         editDate = view.findViewById(R.id.editDate);
         editTime = view.findViewById(R.id.editTime);
@@ -64,6 +116,7 @@ public class DateandTime extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Update the reservationIdCounter based on the data in the database
                 reservationIdCounter = (int) dataSnapshot.getChildrenCount();
             }
 
@@ -76,35 +129,37 @@ public class DateandTime extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference newReservationRef = myRef.push();
-                final String[] reservationId = {newReservationRef.getKey()};
+                if (newReservationRef == null) {
+                    newReservationRef = myRef.push();
+                }
+                final String reservationId = newReservationRef.getKey(); // Get the generated reservationId
 
-                reservationModel.setReservationId(reservationId[0]);
+                ReservationModel reservationModel = new ReservationModel();
+                reservationModel.setReservationId(reservationId);
                 reservationModel.setInvite_date(editDate.getText().toString());
                 reservationModel.setInvite_time(editTime.getText().toString());
                 reservationModel.setParty_agenda(editAgenda.getText().toString());
 
                 newReservationRef.setValue(reservationModel, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                    if (error == null) {
-                        reservationId[0] = ref.getKey(); // Get the generated reservationId
-                        DateandTime_View dateandTime_view = new DateandTime_View();
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        if (error == null) {
+                            DateandTime_View dateandTime_view = new DateandTime_View();
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString("reservationId", reservationId[0]);
-                        dateandTime_view.setArguments(bundle);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("reservationId", reservationId);
+                            dateandTime_view.setArguments(bundle);
 
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, dateandTime_view).commit();
-                    } else {
-                        Toast.makeText(getActivity(), "Failed to save reservation", Toast.LENGTH_SHORT).show();
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, dateandTime_view).commit();
+                        } else {
+                            Toast.makeText(getActivity(), "Failed to save reservation", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+            }
+        });*/
 
-        }
-    });
+   /*     return view;
+    }
+}*/
 
-        return view;
-}
-}
